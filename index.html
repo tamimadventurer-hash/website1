@@ -14,519 +14,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مهام الأسبوع</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>Fameai — نموذج العمل التجاري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        kufi: ['"Noto Kufi Arabic"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
-            --green-dark: #1B5E20;
-            --green-mid: #2E7D32;
-            --green-light: #43A047;
-            --green-soft: #66BB6A;
-            --green-lighter: #A5D6A7;
-            --green-pale: #E8F5E9;
-            --green-bg: #C8E6C9;
-            --leaf: #8BC34A;
-            --bark: #5D4037;
-            --white: #FFFFFF;
-            --text-dark: #1B3B2A;
-            --text-mid: #2E5A38;
+            --bg: #0a0a0b;
+            --card: rgba(255, 248, 240, 0.022);
+            --card-hover: rgba(255, 248, 240, 0.048);
+            --border: rgba(255, 248, 240, 0.055);
+            --border-hover: rgba(255, 248, 240, 0.12);
+            --accent-left: #c2654a;
+            --accent-center: #d4a853;
+            --accent-right: #5b8a72;
+            --text: #ede8e0;
+            --text-sec: #b5afa6;
+            --text-muted: #6b6560;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(170deg, #0D3311 0%, #1B5E20 25%, #1B3B2A 50%, #0D2818 100%);
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
             overflow-x: hidden;
-            position: relative;
         }
 
-        .mist {
-            position: fixed;
+        .bg-fx { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+        .blob {
+            position: absolute;
             border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
+            filter: blur(130px);
+            opacity: 0.1;
+        }
+        .blob-1 {
+            width: 520px; height: 520px;
+            background: var(--accent-left);
+            top: -8%; right: -4%;
+            animation: bf1 26s ease-in-out infinite;
+        }
+        .blob-2 {
+            width: 420px; height: 420px;
+            background: var(--accent-center);
+            top: 38%; left: 28%;
+            animation: bf2 32s ease-in-out infinite;
+        }
+        .blob-3 {
+            width: 460px; height: 460px;
+            background: var(--accent-right);
+            bottom: -8%; left: -6%;
+            animation: bf3 22s ease-in-out infinite;
+        }
+        @keyframes bf1 {
+            0%,100%{transform:translate(0,0) scale(1)}
+            33%{transform:translate(-55px,35px) scale(1.1)}
+            66%{transform:translate(25px,-18px) scale(.92)}
+        }
+        @keyframes bf2 {
+            0%,100%{transform:translate(0,0) scale(1)}
+            33%{transform:translate(45px,-28px) scale(.96)}
+            66%{transform:translate(-38px,45px) scale(1.06)}
+        }
+        @keyframes bf3 {
+            0%,100%{transform:translate(0,0) scale(1)}
+            33%{transform:translate(38px,28px) scale(1.08)}
+            66%{transform:translate(-48px,-35px) scale(.9)}
         }
 
-        .mist-1 { width: 500px; height: 200px; bottom: -50px; left: -100px; background: radial-gradient(ellipse, rgba(76,175,80,0.08) 0%, transparent 70%); animation: mistFloat 12s ease-in-out infinite; }
-        .mist-2 { width: 400px; height: 180px; top: 10%; right: -80px; background: radial-gradient(ellipse, rgba(129,199,132,0.06) 0%, transparent 70%); animation: mistFloat 10s ease-in-out infinite reverse; }
-        .mist-3 { width: 600px; height: 250px; top: 40%; left: -150px; background: radial-gradient(ellipse, rgba(76,175,80,0.05) 0%, transparent 70%); animation: mistFloat 14s ease-in-out infinite 2s; }
-
-        @keyframes mistFloat {
-            0%, 100% { transform: translateX(0) scale(1); opacity: 0.5; }
-            50% { transform: translateX(40px) scale(1.15); opacity: 1; }
+        .dot-grid {
+            position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,.02) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        .tree { position: fixed; z-index: 0; pointer-events: none; }
-        .tree svg { width: 100%; height: 100%; }
-        .tree-1 { bottom: -20px; left: -30px; width: 200px; height: 350px; opacity: 0.07; }
-        .tree-2 { bottom: -10px; right: -20px; width: 180px; height: 320px; opacity: 0.06; transform: scaleX(-1); }
-        .tree-3 { bottom: -20px; left: 35%; width: 150px; height: 280px; opacity: 0.04; }
-        .tree-4 { top: -30px; left: 10%; width: 170px; height: 300px; opacity: 0.05; transform: scaleY(-1); }
-        .tree-5 { top: -20px; right: 15%; width: 140px; height: 260px; opacity: 0.04; transform: scaleY(-1) scaleX(-1); }
+        .site-header {
+            position: relative; z-index: 1;
+            text-align: center;
+            padding: 52px 24px 28px;
+        }
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 5px 16px; border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            font-size: 12px; color: var(--text-muted);
+            margin-bottom: 18px;
+            backdrop-filter: blur(12px);
+        }
+        .badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent-center);
+            animation: pls 2s ease-in-out infinite;
+        }
+        @keyframes pls { 0%,100%{opacity:1} 50%{opacity:.35} }
 
-        .falling-leaf { position: fixed; z-index: 0; pointer-events: none; animation: leafFall var(--dur) linear infinite; animation-delay: var(--delay); opacity: var(--opacity, 0.07); }
-        @keyframes leafFall {
-            0% { transform: translateY(-20px) rotate(0deg) translateX(0); }
-            25% { transform: translateY(25vh) rotate(90deg) translateX(20px); }
-            50% { transform: translateY(50vh) rotate(180deg) translateX(-10px); }
-            75% { transform: translateY(75vh) rotate(270deg) translateX(15px); }
-            100% { transform: translateY(110vh) rotate(360deg) translateX(0); }
+        .main-title {
+            font-size: clamp(34px, 5.5vw, 60px);
+            font-weight: 900; line-height: 1.15;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent-center) 55%, var(--accent-left) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .sub-title {
+            font-size: clamp(13px, 1.8vw, 17px);
+            font-weight: 300; color: var(--text-muted);
+            letter-spacing: .4px;
+        }
+        .h-line {
+            width: 56px; height: 2px; margin: 18px auto 0;
+            background: linear-gradient(90deg, var(--accent-left), var(--accent-center), var(--accent-right));
+            border-radius: 2px;
         }
 
-        .firefly { position: fixed; width: 3px; height: 3px; background: #FFEB3B; border-radius: 50%; box-shadow: 0 0 6px 2px rgba(255,235,59,0.4); z-index: 0; pointer-events: none; animation: fireflyGlow var(--dur) ease-in-out infinite; animation-delay: var(--delay); }
-        @keyframes fireflyGlow { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.7; } }
-
-        .container { max-width: 680px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
-
-        .header { text-align: center; margin-bottom: 28px; animation: slideDown 0.6s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .header h1 { font-size: 1.8rem; font-weight: 900; color: var(--green-lighter); text-shadow: 0 0 30px rgba(76,175,80,0.2); }
-        .header .sub { color: rgba(165,214,167,0.5); font-size: 0.88rem; margin-top: 4px; }
-
-        .card {
-            background: linear-gradient(170deg, rgba(27,94,32,0.06), rgba(255,255,255,0.97));
-            border-radius: 20px;
-            box-shadow: 0 12px 50px rgba(27,94,32,0.15), 0 0 0 1px rgba(76,175,80,0.1);
-            overflow: hidden;
-            animation: slideUp 0.6s ease-out 0.1s both;
-            backdrop-filter: blur(1px);
+        .legend {
+            display: flex; justify-content: center;
+            gap: 22px; margin-top: 16px; flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--text-muted);
+        }
+        .legend-dot {
+            width: 8px; height: 8px; border-radius: 50%;
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
-
-        .card::before { content: ''; display: block; height: 5px; background: linear-gradient(90deg, var(--green-dark), var(--leaf), var(--green-light), var(--green-soft)); background-size: 200% 100%; animation: gradShift 5s ease infinite; }
-        @keyframes gradShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-
-        .card-header { padding: 18px 26px; background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); display: flex; align-items: center; gap: 12px; }
-        .card-header i { font-size: 1.3rem; color: var(--green-lighter); }
-        .card-header h2 { font-size: 1.05rem; font-weight: 900; color: white; flex: 1; }
-        .header-count { background: rgba(255,255,255,0.15); color: var(--green-lighter); padding: 4px 14px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; }
-
-        .section-label {
-            display: flex;
-            align-items: center;
+        .bmc-wrap {
+            position: relative; z-index: 1;
+            max-width: 1480px; margin: 0 auto;
+            padding: 20px 20px 8px;
+        }
+        .bmc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.6fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            grid-template-areas:
+                "partners  activities  value  relationships  segments"
+                "partners  resources   channels relationships segments"
+                "cost      cost        cost   revenue        revenue";
             gap: 10px;
-            padding: 10px 26px;
-            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
         }
 
-        .section-label i { color: var(--green-lighter); font-size: 0.85rem; }
-        .section-label span { color: white; font-size: 0.85rem; font-weight: 800; }
+        .bmc-card {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            backdrop-filter: blur(18px);
+            transition: all .4s cubic-bezier(.4,0,.2,1);
+            overflow: hidden;
+            opacity: 0; transform: translateY(22px);
+            animation: cardIn .55s ease-out forwards;
+        }
+        .bmc-card::before {
+            content: '';
+            position: absolute; top: 0; right: 0; left: 0;
+            height: 2px;
+            background: var(--sc);
+            opacity: .6; transition: opacity .3s;
+        }
+        .bmc-card:hover {
+            background: var(--card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0,0,0,.35);
+        }
+        .bmc-card:hover::before { opacity: 1; }
 
-        .section-label .section-num {
-            margin-right: auto;
-            background: rgba(255,255,255,0.15);
-            padding: 2px 12px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            color: var(--green-lighter);
+        @keyframes cardIn { to { opacity:1; transform:translateY(0); } }
+
+        .c-partners     { grid-area:partners;      --sc:var(--accent-left);   animation-delay:.04s; }
+        .c-activities   { grid-area:activities;    --sc:var(--accent-left);   animation-delay:.09s; }
+        .c-value        { grid-area:value;         --sc:var(--accent-center); animation-delay:.14s; }
+        .c-relationships{ grid-area:relationships; --sc:var(--accent-right);  animation-delay:.19s; }
+        .c-segments     { grid-area:segments;      --sc:var(--accent-right);  animation-delay:.24s; }
+        .c-resources    { grid-area:resources;     --sc:var(--accent-left);   animation-delay:.29s; }
+        .c-channels     { grid-area:channels;      --sc:var(--accent-center); animation-delay:.34s; }
+        .c-cost         { grid-area:cost;          --sc:var(--accent-left);   animation-delay:.39s; }
+        .c-revenue      { grid-area:revenue;       --sc:var(--accent-right);  animation-delay:.44s; }
+
+        @media (hover:hover){
+            .bmc-grid:hover .bmc-card:not(:hover) { opacity:.55; transition:opacity .35s; }
+            .bmc-grid:hover .bmc-card:hover { opacity:1; }
         }
 
-        .card-body { padding: 2px 0; }
-
-        .item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            padding: 16px 26px;
-            transition: all 0.3s;
-            border-bottom: 1px solid rgba(27,94,32,0.05);
-            animation: fadeIn 0.4s ease-out both;
+        .ch {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 14px;
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-        .item:last-child { border-bottom: none; }
-        .item:hover { background: rgba(200,230,201,0.3); }
-
-        .item-num {
-            flex-shrink: 0;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 0.95rem;
-            color: white;
-            box-shadow: 0 4px 12px rgba(27,94,32,0.2);
-            margin-top: 2px;
+        .ch-icon {
+            width: 34px; height: 34px; border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+            background: color-mix(in srgb, var(--sc) 14%, transparent);
+            color: var(--sc);
         }
+        .ch-titles { display: flex; flex-direction: column; gap: 1px; }
+        .ch-ar { font-size: 13px; font-weight: 700; color: var(--text); }
+        .ch-en { font-size: 10px; font-weight: 400; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
 
-        .item:nth-child(1) .item-num { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); }
-        .item:nth-child(2) .item-num { background: linear-gradient(135deg, var(--leaf), var(--green-light)); }
-        .item:nth-child(3) .item-num { background: linear-gradient(135deg, var(--green-mid), var(--leaf)); }
-
-        .item-icon {
-            flex-shrink: 0;
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-
-        .item:nth-child(1) .item-icon { background: var(--green-pale); color: var(--green-dark); }
-        .item:nth-child(2) .item-icon { background: linear-gradient(135deg, var(--green-pale), #DCEDC8); color: var(--green-dark); }
-        .item:nth-child(3) .item-icon { background: var(--green-pale); color: var(--green-mid); }
-
-        .item-content { flex: 1; }
-
-        .action-label {
-            font-size: 0.78rem;
-            font-weight: 800;
-            color: var(--green-dark);
-            background: var(--green-pale);
-            padding: 3px 10px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .action-label i { font-size: 0.65rem; }
-
-        .item-text {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            line-height: 1.75;
-        }
-
-        .item-text .detail {
-            color: var(--green-mid);
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-top: 4px;
-            padding-right: 56px;
-        }
-
-        /* مربع النقاط التفصيلي */
-        .checklist-box {
-            margin-top: 10px;
-            padding: 14px 16px;
-            background: linear-gradient(135deg, #F1F8E9, var(--green-pale));
-            border-radius: 12px;
-            border-right: 4px solid var(--green-mid);
-        }
-
-        .checklist-box .checklist-title {
-            font-size: 0.75rem;
-            font-weight: 800;
-            color: var(--green-dark);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .checklist-box .checklist-title i { font-size: 0.65rem; }
-
-        .checklist-box ul {
+        .cl {
             list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: flex; flex-direction: column; gap: 7px;
+        }
+        .cl li {
+            font-size: 12px; line-height: 1.75;
+            color: var(--text-sec);
+            display: flex; align-items: flex-start; gap: 9px;
+        }
+        .cl .dot {
+            width: 4px; height: 4px; border-radius: 50%;
+            background: var(--sc); flex-shrink: 0;
+            margin-top: 9px; opacity: .55;
         }
 
-        .checklist-box ul li {
-            font-size: 0.84rem;
-            font-weight: 600;
-            color: #37474F;
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            line-height: 1.6;
+        .vt { display: flex; gap: 4px; margin-bottom: 14px; }
+        .vt-btn {
+            flex: 1; padding: 7px 6px; border-radius: 8px;
+            border: 1px solid transparent; background: transparent;
+            color: var(--text-muted);
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-size: 11px; font-weight: 500;
+            cursor: pointer; transition: all .3s; text-align: center;
+        }
+        .vt-btn:hover { color: var(--text-sec); background: rgba(255,255,255,.025); }
+        .vt-btn.on {
+            background: color-mix(in srgb, var(--sc) 11%, transparent);
+            border-color: color-mix(in srgb, var(--sc) 22%, transparent);
+            color: var(--sc);
+        }
+        .vp { display: none; }
+        .vp.on { display: block; animation: vpIn .3s ease; }
+        @keyframes vpIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+
+        .sg { margin-bottom: 10px; }
+        .sg:last-child { margin-bottom: 0; }
+        .sg-badge {
+            display: inline-block; padding: 2px 9px; border-radius: 5px;
+            font-size: 10px; font-weight: 700; margin-bottom: 5px;
+            background: color-mix(in srgb, var(--sc) 12%, transparent);
+            color: var(--sc);
         }
 
-        .checklist-box ul li .bullet {
-            flex-shrink: 0;
-            width: 7px;
-            height: 7px;
-            background: var(--green-mid);
-            border-radius: 50%;
-            margin-top: 7px;
-        }
-
-        .checklist-box ul li .bullet-label {
-            font-weight: 800;
-            color: var(--green-dark);
-            flex-shrink: 0;
-            min-width: 60px;
-        }
-
-        .checklist-box .intro-text {
-            color: var(--text-mid);
-            font-size: 0.83rem;
-            margin-bottom: 10px;
-            line-height: 1.6;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed rgba(27,94,32,0.12);
-        }
-
-        /* مربع الأسئلة */
-        .questions-box {
-            margin-top: 10px;
-            padding: 14px 16px;
-            background: linear-gradient(135deg, #F1F8E9, var(--green-pale));
-            border-radius: 12px;
-            border-right: 4px solid var(--leaf);
-        }
-
-        .questions-box .q-title {
-            font-size: 0.75rem;
-            font-weight: 800;
-            color: var(--green-dark);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .questions-box .q-title i { font-size: 0.65rem; }
-
-        .questions-box ul {
+        .chip-list {
             list-style: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: flex; flex-wrap: wrap; gap: 8px;
+        }
+        .chip-list li {
+            background: color-mix(in srgb, var(--sc) 7%, transparent);
+            border: 1px solid color-mix(in srgb, var(--sc) 14%, transparent);
+            border-radius: 9px;
+            padding: 9px 16px;
+            font-size: 12px; line-height: 1.6;
+            color: var(--text-sec);
+            display: flex; align-items: center; gap: 8px;
+            transition: all .3s;
+        }
+        .chip-list li:hover {
+            background: color-mix(in srgb, var(--sc) 13%, transparent);
+            border-color: color-mix(in srgb, var(--sc) 28%, transparent);
+            transform: translateY(-1px);
+        }
+        .chip-list .cdot {
+            width: 5px; height: 5px; border-radius: 50%;
+            background: var(--sc); opacity: .5; flex-shrink: 0;
         }
 
-        .questions-box ul li {
-            font-size: 0.84rem;
-            font-weight: 600;
-            color: #37474F;
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            line-height: 1.6;
+        .site-footer {
+            position: relative; z-index: 1;
+            text-align: center; padding: 28px 24px 44px;
+            color: var(--text-muted); font-size: 11px;
         }
 
-        .questions-box ul li .q-num {
-            flex-shrink: 0;
-            width: 22px;
-            height: 22px;
-            background: var(--leaf);
-            color: white;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 800;
-            margin-top: 1px;
+        @media (max-width:1100px) {
+            .bmc-grid {
+                grid-template-columns: 1fr 1fr 1.4fr 1fr 1fr;
+                gap: 8px;
+            }
+            .bmc-card { padding: 16px; }
+            .cl li { font-size: 11px; }
+            .chip-list li { font-size: 11px; padding: 7px 12px; }
         }
 
-        .summary-note {
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: var(--green-dark);
-            border-radius: 10px;
-            font-size: 0.83rem;
-            font-weight: 700;
-            color: var(--green-lighter);
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            line-height: 1.6;
+        @media (max-width:860px) {
+            .bmc-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-areas:
+                    "value        value"
+                    "segments     relationships"
+                    "activities   resources"
+                    "partners     channels"
+                    "cost         revenue";
+                gap: 10px;
+            }
+            @media (hover:hover){
+                .bmc-grid:hover .bmc-card:not(:hover) { opacity:1; }
+            }
+            .bmc-card:hover { transform: none; }
+            .chip-list { flex-direction: column; }
         }
 
-        .summary-note i { font-size: 0.85rem; margin-top: 2px; flex-shrink: 0; }
-
-        .card-footer {
-            padding: 14px 26px;
-            background: rgba(200,230,201,0.2);
-            border-top: 1px solid rgba(27,94,32,0.06);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        @media (max-width:520px) {
+            .bmc-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "value"
+                    "segments"
+                    "relationships"
+                    "activities"
+                    "resources"
+                    "partners"
+                    "channels"
+                    "cost"
+                    "revenue";
+            }
+            .bmc-card { padding: 18px; }
+            .vt { flex-direction: column; }
         }
 
-        .card-footer i { color: var(--green-mid); font-size: 0.82rem; }
-        .card-footer span { color: #999; font-size: 0.78rem; font-weight: 600; }
-
-        @media (max-width: 600px) {
-            body { padding: 20px 8px; }
-            .header h1 { font-size: 1.4rem; }
-            .card-header { padding: 14px 18px; gap: 8px; }
-            .section-label { padding: 8px 18px; }
-            .item { padding: 14px 18px; gap: 10px; }
-            .item-text { font-size: 0.85rem; }
-            .item-num { width: 36px; height: 36px; font-size: 0.85rem; }
-            .checklist-box, .questions-box { padding: 10px 12px; }
-            .checklist-box ul li, .questions-box ul li { font-size: 0.8rem; }
-            .card-footer { padding: 12px 18px; }
-        }
-
-        @media print {
-            body { background: white; padding: 0; }
-            .mist, .tree, .falling-leaf, .firefly { display: none !important; }
-            .card { box-shadow: none; border: 1px solid #ccc; backdrop-filter: none; }
-            .card::before { display: none; }
-            .item:hover { background: white; }
+        @media (prefers-reduced-motion:reduce) {
+            .blob, .badge-dot { animation: none; }
+            .bmc-card { animation: none; opacity:1; transform:none; }
+            .vp.on { animation: none; }
         }
     </style>
 </head>
-<body>
+<body class="font-kufi">
 
-<div class="mist mist-1"></div>
-<div class="mist mist-2"></div>
-<div class="mist mist-3"></div>
-
-<div class="tree tree-1"><svg viewBox="0 0 200 350" fill="none"><rect x="90" y="200" width="20" height="150" rx="4" fill="#5D4037"/><ellipse cx="100" cy="180" rx="70" ry="90" fill="#2E7D32"/><ellipse cx="100" cy="140" rx="55" ry="65" fill="#388E3C"/><ellipse cx="100" cy="105" rx="40" ry="45" fill="#43A047"/><ellipse cx="100" cy="75" rx="25" ry="30" fill="#4CAF50"/><ellipse cx="70" cy="140" rx="20" ry="15" fill="#66BB6A" transform="rotate(-20 70 140)"/><ellipse cx="130" cy="120" rx="18" ry="12" fill="#66BB6A" transform="rotate(15 130 120)"/><ellipse cx="60" cy="170" rx="15" ry="10" fill="#81C784" transform="rotate(-30 60 170)"/></svg></div>
-
-<div class="tree tree-2"><svg viewBox="0 0 200 350" fill="none"><rect x="90" y="220" width="18" height="130" rx="4" fill="#5D4037"/><ellipse cx="100" cy="200" rx="65" ry="85" fill="#1B5E20"/><ellipse cx="100" cy="160" rx="50" ry="60" fill="#2E7D32"/><ellipse cx="100" cy="125" rx="35" ry="40" fill="#388E3C"/><ellipse cx="100" cy="100" rx="22" ry="25" fill="#43A047"/><ellipse cx="75" cy="155" rx="18" ry="12" fill="#4CAF50" transform="rotate(-25 75 155)"/><ellipse cx="125" cy="135" rx="15" ry="10" fill="#66BB6A" transform="rotate(20 125 135)"/></svg></div>
-
-<div class="tree tree-3"><svg viewBox="0 0 200 350" fill="none"><rect x="88" y="210" width="16" height="140" rx="3" fill="#5D4037"/><ellipse cx="96" cy="190" rx="60" ry="80" fill="#2E7D32"/><ellipse cx="96" cy="150" rx="45" ry="55" fill="#388E3C"/><ellipse cx="96" cy="115" rx="30" ry="35" fill="#43A047"/><ellipse cx="96" cy="90" rx="18" ry="22" fill="#4CAF50"/></svg></div>
-
-<div class="tree tree-4"><svg viewBox="0 0 200 300" fill="none"><rect x="88" y="180" width="16" height="120" rx="3" fill="#5D407"/><ellipse cx="96" cy="160" rx="55" ry="70" fill="#1B5E20"/><ellipse cx="96" cy="125" rx="40" ry="50" fill="#2E7D32"/><ellipse cx="96" cy="95" rx="28" ry="32" fill="#388E3C"/><ellipse cx="96" cy="72" rx="18" ry="20" fill="#43A047"/></svg></div>
-
-<div class="tree tree-5"><svg viewBox="0 0 200 300" fill="none"><rect x="90" y="190" width="14" height="110" rx="3" fill="#5D4037"/><ellipse cx="97" cy="170" rx="50" ry="65" fill="#2E7D32"/><ellipse cx="97" cy="135" rx="38" ry="45" fill="#388E3C"/><ellipse cx="97" cy="105" rx="25" ry="28" fill="#43A047"/></svg></div>
-
-<div class="falling-leaf" style="left:10%;--dur:12s;--delay:0s;--opacity:0.07"><svg width="20" height="20" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="6" ry="10" fill="#4CAF50"/></svg></div>
-<div class="falling-leaf" style="left:30%;--dur:15s;--delay:3s;--opacity:0.05"><svg width="18" height="18" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="5" ry="9" fill="#66BB6A"/></svg></div>
-<div class="falling-leaf" style="left:55%;--dur:10s;--delay:6s;--opacity:0.06"><svg width="22" height="22" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="7" ry="10" fill="#81C784"/></svg></div>
-<div class="falling-leaf" style="left:75%;--dur:14s;--delay:1s;--opacity:0.04"><svg width="16" height="16" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="5" ry="9" fill="#A5D6A7"/></svg></div>
-<div class="falling-leaf" style="left:90%;--dur:11s;--delay:8s;--opacity:0.05"><svg width="20" height="20" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="6" ry="10" fill="#4CAF50"/></svg></div>
-<div class="falling-leaf" style="left:45%;--dur:16s;--delay:4s;--opacity:0.03"><svg width="18" height="18" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="5" ry="9" fill="#66BB6A"/></svg></div>
-
-<div class="firefly" style="top:20%;left:15%;--dur:3s;--delay:0s"></div>
-<div class="firefly" style="top:35%;left:60%;--dur:4s;--delay:1.5s"></div>
-<div class="firefly" style="top:55%;left:25%;--dur:3.5s;--delay:0.8s"></div>
-<div class="firefly" style="top:70%;left:75%;--dur:2.8s;--delay:2s"></div>
-<div class="firefly" style="top:15%;left:80%;--dur:3.2s;--delay:3s"></div>
-<div class="firefly" style="top:80%;left:45%;--dur:4.2s;--delay:1.2s"></div>
-<div class="firefly" style="top:45%;left:5%;--dur:3.8s;--delay:2.5s"></div>
-
-<div class="container">
-    <div class="header">
-        <h1><i class="fas fa-tree"></i> مهام الأسبوع</h1>
-        <p class="sub">التجارة في الواقع — 3 مهام</p>
+    <div class="bg-fx" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="dot-grid"></div>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            <i class="fas fa-leaf"></i>
-            <h2>التجارة في الواقع</h2>
-            <span class="header-count">3 مهام</span>
-        </div>
+    <header class="site-header">
+        <div class="badge"><span class="badge-dot"></span><span>نموذج العمل التجاري</span></div>
+        <h1 class="main-title">Fameai</h1>
+        <p class="sub-title">صناعة الأثر &mdash; Business Model Canvas</p>
+        <div class="h-line"></div>
+        <nav class="legend" aria-label="دليل الألوان">
+            <span class="legend-item"><span class="legend-dot" style="background:var(--accent-left)"></span>البنية والعمليات</span>
+            <span class="legend-item"><span class="legend-dot" style="background:var(--accent-center)"></span>القيمة المقدمة</span>
+            <span class="legend-item"><span class="legend-dot" style="background:var(--accent-right)"></span>العملاء والإيرادات</span>
+        </nav>
+    </header>
 
-        <div class="card-body">
-            <!-- المهمة 1 -->
-            <div class="item" style="animation-delay:0s">
-                <div class="item-num">1</div>
-                <div class="item-content">
-                    <div class="action-label"><i class="fas fa-book-open"></i> يتعلم</div>
-                    <div class="item-text">رحلة المنتج من البائع للمشتري</div>
-                    <div class="detail">كيف يتحرك المنتج: من المورد ← المتجر ← العميل، وأين يدخل الربح في كل خطوة.</div>
-                </div>
-                <div class="item-icon"><i class="fas fa-route"></i></div>
-            </div>
+    <main class="bmc-wrap">
+        <div class="bmc-grid">
 
-            <!-- المهمة 2 -->
-            <div class="item" style="animation-delay:0.08s">
-                <div class="item-num">2</div>
-                <div class="item-content">
-                    <div class="action-label"><i class="fas fa-eye"></i> يفهم</div>
-                    <div class="item-text">تصفح متجر إلكتروني وراقب كيف يقنعونك</div>
-
-                    <div class="checklist-box">
-                        <div class="checklist-title"><i class="fas fa-list-check"></i> افتح أي متجر إلكتروني وتصفحه كأنك رح تشتري، وسجّل ملاحظاتك على هذه النقاط:</div>
-                        <ul>
-                            <li>
-                                <span class="bullet-label">الشكل</span>
-                                <span>كيف يعرضون المنتج وصوره</span>
-                            </li>
-                            <li>
-                                <span class="bullet-label">السعر</span>
-                                <span>كيف يكتبونه ويقنعونك فيه</span>
-                            </li>
-                            <li>
-                                <span class="bullet-label">الكلام</span>
-                                <span>وصف المنتج وكيف يتكلمون عنه</span>
-                            </li>
-                            <li>
-                                <span class="bullet-label">الثقة</span>
-                                <span>تقييمات، ضمان، سياسة إرجاع</span>
-                            </li>
-                            <li>
-                                <span class="bullet-label">الإلحاح</span>
-                                <span>"آخر قطعة!" أو "العرض ينتهي اليوم"</span>
-                            </li>
-                            <li>
-                                <span class="bullet-label">السهولة</span>
-                                <span>كم خطوة للشراء، هل الموقع سهل؟</span>
-                            </li>
-                            <li>
-                                <span class="bullet-label">المنتجات الثانية</span>
-                                <span>إيش يقترحون عليك جنب المنتج</span>
-                            </li>
-                        </ul>
+            <section class="bmc-card c-partners" aria-label="الشركاء الرئيسيون">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-handshake"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">الشركاء الرئيسيون</span>
+                        <span class="ch-en">Key Partners</span>
                     </div>
                 </div>
-                <div class="item-icon"><i class="fas fa-search"></i></div>
-            </div>
+                <ul class="cl">
+                    <li><span class="dot"></span>مدربون ومعلمون متخصصون</li>
+                    <li><span class="dot"></span>شركات ومؤسسات سعودية</li>
+                    <li><span class="dot"></span>جمعيات وأكاديميات مهنية</li>
+                    <li><span class="dot"></span>مزودو التقنية والمنصة</li>
+                    <li><span class="dot"></span>وزارة التعليم والجهات الحكومية</li>
+                    <li><span class="dot"></span>شركاء محتوى وإعلام</li>
+                </ul>
+            </section>
 
-            <!-- المهمة 3 -->
-            <div class="item" style="animation-delay:0.16s">
-                <div class="item-num">3</div>
-                <div class="item-content">
-                    <div class="action-label"><i class="fas fa-pen"></i> يفعل</div>
-                    <div class="item-text">أوب على 3 أسئلة مع ملخص</div>
-
-                    <div class="questions-box">
-                        <div class="q-title"><i class="fas fa-circle-question"></i> الأسئلة المطلوبة</div>
-                        <ul>
-                            <li>
-                                <span class="q-num">1</span>
-                                <span>وين حسيت إن المتجر يحاول يقنعك تشتري؟</span>
-                            </li>
-                            <li>
-                                <span class="q-num">2</span>
-                                <span>إيش اللي أعجبك وإيش اللي ضايقك في التجربة؟</span>
-                            </li>
-                            <li>
-                                <span class="q-num">3</span>
-                                <span>لو أنت البائع، إيش كنت تغير؟</span>
-                            </li>
-                        </ul>
-
-                        <div class="summary-note">
-                            <i class="fas fa-pen-fancy"></i>
-                            <span>✏️ يكتب ملخص بسيط: "إيش تعلمت من تجربة التصفح؟"</span>
-                        </div>
+            <section class="bmc-card c-activities" aria-label="الأنشطة الرئيسية">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-gears"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">الأنشطة الرئيسية</span>
+                        <span class="ch-en">Key Activities</span>
                     </div>
                 </div>
-                <div class="item-icon"><i class="fas fa-clipboard-check"></i></div>
-            </div>
+                <ul class="cl">
+                    <li><span class="dot"></span>بناء وتشغيل المنصة الرقمية</li>
+                    <li><span class="dot"></span>تصميم خطط المسارات الشهرية</li>
+                    <li><span class="dot"></span>إدارة مجتمعات المجالات</li>
+                    <li><span class="dot"></span>تتبع تقدم المراهقين</li>
+                    <li><span class="dot"></span>إنتاج محتوى تعليمي هادف</li>
+                    <li><span class="dot"></span>إدارة إعلانات الدورات والورش</li>
+                </ul>
+            </section>
+
+            <section class="bmc-card c-value" aria-label="القيمة المقدمة">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-gem"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">القيمة المقدمة</span>
+                        <span class="ch-en">Value Propositions</span>
+                    </div>
+                </div>
+                <div class="vt" role="tablist" aria-label="أقسام القيمة المقدمة">
+                    <button class="vt-btn on" role="tab" aria-selected="true" data-tab="teen">للمراهق</button>
+                    <button class="vt-btn" role="tab" aria-selected="false" data-tab="trainer">للمدربين</button>
+                    <button class="vt-btn" role="tab" aria-selected="false" data-tab="creator">صناعة المحتوى</button>
+                </div>
+                <div class="vp on" id="p-teen" role="tabpanel">
+                    <ul class="cl">
+                        <li><span class="dot"></span>وضوح المسار &mdash; يعرف وين يروح وليش</li>
+                        <li><span class="dot"></span>خطة عملية &mdash; أهداف شهرية ومهام أسبوعية</li>
+                        <li><span class="dot"></span>تتبع التقدم &mdash; يشوف تحسنه ويبني ثقته</li>
+                        <li><span class="dot"></span>مجتمع &mdash; دردشة واجتماعات أسبوعية</li>
+                        <li><span class="dot"></span>وصول للخبراء &mdash; دورات وورش متخصصة</li>
+                    </ul>
+                </div>
+                <div class="vp" id="p-trainer" role="tabpanel">
+                    <ul class="cl">
+                        <li><span class="dot"></span>جمهور جاهز يبحث عن تطوير المهارات</li>
+                        <li><span class="dot"></span>تصنيف دقيق &mdash; تجارة / تقنية / تصوير</li>
+                        <li><span class="dot"></span>قناة تسويق مباشرة بدون بناء جمهور</li>
+                    </ul>
+                </div>
+                <div class="vp" id="p-creator" role="tabpanel">
+                    <ul class="cl">
+                        <li><span class="dot"></span>تكلفة أقل في الإنتاج</li>
+                        <li><span class="dot"></span>سرعة في التسليم</li>
+                        <li><span class="dot"></span>محتوى هادف يترك أثراً</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="bmc-card c-relationships" aria-label="علاقة العميل">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-heart"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">علاقة العميل</span>
+                        <span class="ch-en">Customer Relationships</span>
+                    </div>
+                </div>
+                <ul class="cl">
+                    <li><span class="dot"></span>مجتمع تفاعلي داخل المنصة</li>
+                    <li><span class="dot"></span>اجتماعات أسبوعية للمتابعة</li>
+                    <li><span class="dot"></span>نظام تتبع شخصي للتقدم</li>
+                    <li><span class="dot"></span>دعم من مدربين داخل المجتمع</li>
+                    <li><span class="dot"></span>نقاط وإنجازات لتحفيز الاستمرار</li>
+                </ul>
+            </section>
+
+            <section class="bmc-card c-segments" aria-label="شرائح العملاء">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">شرائح العملاء</span>
+                        <span class="ch-en">Customer Segments</span>
+                    </div>
+                </div>
+                <div class="sg">
+                    <span class="sg-badge">B2C</span>
+                    <ul class="cl">
+                        <li><span class="dot"></span>المراهقون</li>
+                        <li><span class="dot"></span>أولياء الأمور</li>
+                    </ul>
+                </div>
+                <div class="sg">
+                    <span class="sg-badge">B2B</span>
+                    <ul class="cl">
+                        <li><span class="dot"></span>المدربون</li>
+                        <li><span class="dot"></span>الشركات والمؤسسات</li>
+                    </ul>
+                </div>
+                <div class="sg">
+                    <span class="sg-badge">B2G</span>
+                    <ul class="cl">
+                        <li><span class="dot"></span>وزارة التعليم</li>
+                        <li><span class="dot"></span>الجهات الحكومية</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="bmc-card c-resources" aria-label="الموارد الرئيسية">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-cubes"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">الموارد الرئيسية</span>
+                        <span class="ch-en">Key Resources</span>
+                    </div>
+                </div>
+                <ul class="cl">
+                    <li><span class="dot"></span>المنصة الرقمية ونظام التتبع</li>
+                    <li><span class="dot"></span>شروط إعلانات هادفة على المنصة</li>
+                    <li><span class="dot"></span>مجتمعات المراهقين النشطة</li>
+                    <li><span class="dot"></span>أدوات الذكاء الاصطناعي للإنتاج</li>
+                    <li><span class="dot"></span>العلامة التجارية والمصداقية</li>
+                </ul>
+            </section>
+
+            <section class="bmc-card c-channels" aria-label="القنوات">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">القنوات</span>
+                        <span class="ch-en">Channels</span>
+                    </div>
+                </div>
+                <ul class="cl">
+                    <li><span class="dot"></span>المنصة الرقمية المباشرة</li>
+                    <li><span class="dot"></span>مواقع التواصل الاجتماعي كافة</li>
+                </ul>
+            </section>
+
+            <section class="bmc-card c-cost" aria-label="هيكل التكاليف">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-receipt"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">هيكل التكاليف</span>
+                        <span class="ch-en">Cost Structure</span>
+                    </div>
+                </div>
+                <ul class="chip-list">
+                    <li><span class="cdot"></span>تطوير وصيانة المنصة الرقمية</li>
+                    <li><span class="cdot"></span>تسويق واستقطاب المراهقين</li>
+                    <li><span class="cdot"></span>إدارة المجتمعات والاجتماعات</li>
+                    <li><span class="cdot"></span>أدوات الذكاء الاصطناعي والبنية التحتية</li>
+                </ul>
+            </section>
+
+            <section class="bmc-card c-revenue" aria-label="مصادر الإيراد">
+                <div class="ch">
+                    <div class="ch-icon"><i class="fa-solid fa-coins"></i></div>
+                    <div class="ch-titles">
+                        <span class="ch-ar">مصادر الإيراد</span>
+                        <span class="ch-en">Revenue Streams</span>
+                    </div>
+                </div>
+                <ul class="chip-list">
+                    <li><span class="cdot"></span>رسوم نشر الدورات والورش على المنصة</li>
+                    <li><span class="cdot"></span>خدمات صناعة المحتوى للشركات والأفراد</li>
+                    <li><span class="cdot"></span>رعايات وشراكات مؤسسية</li>
+                </ul>
+            </section>
+
         </div>
+    </main>
 
-        <div class="card-footer">
-            <i class="fas fa-lock"></i>
-            <span>قائمة للقراءة فقط</span>
-        </div>
-    </div>
-</div>
+    <footer class="site-footer">
+        <p>Fameai &mdash; صناعة الأثر</p>
+    </footer>
 
-</body>
-</html>
-                                    </div>
-                                </div>
-
+    <script>
+        document.querySelectorAll('.vt-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.vt-btn').forEach(b => {
+                    b.classList.remove('on');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                document.querySelectorAll('.vp').forEach(p => p.classList.remove('on'));
+                btn.classList.add('on');
+                btn.setAttribute('aria-selected', 'true');
+                const panel = document.getElementById('p-' + btn.dataset.tab);
+                if (panel) panel.classList.add('on');
+            });
+        });
+    </script>
 </body>
 </html>
     
